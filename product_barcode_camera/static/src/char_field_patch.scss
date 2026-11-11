@@ -1,0 +1,12 @@
+// Keep the camera button on the same line as the Barcode input, at the size
+// of the camera button on product fields.
+.o_field_char:has(.o_product_barcode_camera_btn) {
+    display: flex;
+    align-items: center;
+}
+
+.o_product_barcode_camera_btn {
+    flex: 0 0 auto;
+    width: 1.75rem;
+    height: 1.75rem;
+}

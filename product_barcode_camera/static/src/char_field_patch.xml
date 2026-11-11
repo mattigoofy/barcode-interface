@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-inherit="web.CharField" t-inherit-mode="extension">
+        <!-- Next to the field, not among its input buttons: those only show
+             on hover, which a phone does not have. -->
+        <xpath expr="//div[hasclass('o_field_input_buttons')]" position="after">
+            <button
+                t-if="hasProductBarcodeCamera"
+                type="button"
+                class="btn ms-3 o_barcode o_product_barcode_camera_btn"
+                tabindex="-1"
+                title="Scan barcode"
+                aria-label="Scan barcode"
+                t-on-click="onProductBarcodeCameraClick"
+            />
+        </xpath>
+    </t>
+</templates>
