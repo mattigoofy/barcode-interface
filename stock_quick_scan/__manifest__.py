@@ -16,7 +16,6 @@
     "assets": {
         "web.assets_backend": [
             "stock_quick_scan/static/src/quick_scan/*",
-            "stock_quick_scan/static/src/product_barcode/*",
         ],
     },
     "installable": True,
