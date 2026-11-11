@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_quick_scan" model="ir.actions.client">
+        <field name="name">Quick Scan</field>
+        <field name="tag">stock_quick_scan</field>
+    </record>
+
+    <menuitem
+        id="menu_quick_scan"
+        name="Quick Scan"
+        parent="stock.menu_stock_adjustments"
+        action="action_quick_scan"
+        groups="stock.group_stock_user"
+        sequence="100"
+    />
+</odoo>

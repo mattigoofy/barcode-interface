@@ -1,0 +1,15 @@
+.o_stock_quick_scan {
+    .o_stock_quick_scan_sheet {
+        max-width: 720px;
+    }
+
+    .o_stock_quick_scan_label {
+        flex: 0 0 8rem;
+        margin-bottom: 0;
+    }
+
+    .o_stock_quick_scan_reason {
+        cursor: pointer;
+        font-size: 0.85rem;
+    }
+}
