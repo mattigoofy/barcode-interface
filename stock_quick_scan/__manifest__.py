@@ -12,11 +12,11 @@
     ],
     "data": [
         "views/quick_scan_views.xml",
-        "views/stock_scrap_views.xml",
     ],
     "assets": {
         "web.assets_backend": [
             "stock_quick_scan/static/src/quick_scan/*",
+            "stock_quick_scan/static/src/product_barcode/*",
         ],
     },
     "installable": True,
