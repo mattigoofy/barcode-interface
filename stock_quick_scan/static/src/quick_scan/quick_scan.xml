@@ -26,7 +26,9 @@
 
                     <div class="mb-2">
                         <div class="o_wrap_field d-flex mb-2 align-items-center">
-                            <label class="o_form_label o_stock_quick_scan_label">Location</label>
+                            <label
+                                class="o_form_label o_stock_quick_scan_label"
+                            >Location</label>
                             <select
                                 class="form-select"
                                 t-on-change="(ev) => this.setLocation(ev.target.value)"
@@ -43,7 +45,9 @@
                         </div>
                         <t t-if="state.mode === 'scrap'">
                             <div class="o_wrap_field d-flex mb-2 align-items-center">
-                                <label class="o_form_label o_stock_quick_scan_label">Scrap Location</label>
+                                <label
+                                    class="o_form_label o_stock_quick_scan_label"
+                                >Scrap Location</label>
                                 <select
                                     class="form-select"
                                     t-on-change="(ev) => this.setScrapLocation(ev.target.value)"
@@ -62,7 +66,9 @@
                                 t-if="state.reasons.length"
                                 class="o_wrap_field d-flex mb-2 align-items-start"
                             >
-                                <label class="o_form_label o_stock_quick_scan_label">Reasons</label>
+                                <label
+                                    class="o_form_label o_stock_quick_scan_label"
+                                >Reasons</label>
                                 <div class="d-flex flex-wrap gap-1">
                                     <span
                                         t-foreach="state.reasons"
@@ -80,7 +86,9 @@
 
                     <div class="d-flex gap-2 mb-3">
                         <div class="input-group">
-                            <span class="input-group-text"><i class="fa fa-barcode" /></span>
+                            <span class="input-group-text">
+                                <i class="fa fa-barcode" />
+                            </span>
                             <input
                                 type="text"
                                 class="form-control o_stock_quick_scan_input"
@@ -101,9 +109,16 @@
                     </div>
 
                     <div class="text-muted small mb-2">
-                        <i t-if="state.pending" class="fa fa-circle-o-notch fa-spin me-1" />
-                        <t t-if="state.mode === 'scrap'">Each product scanned is scrapped at once (1 unit).</t>
-                        <t t-else="">Each product scanned is added to stock at once (1 unit).</t>
+                        <i
+                            t-if="state.pending"
+                            class="fa fa-circle-o-notch fa-spin me-1"
+                        />
+                        <t
+                            t-if="state.mode === 'scrap'"
+                        >Each product scanned is scrapped at once (1 unit).</t>
+                        <t
+                            t-else=""
+                        >Each product scanned is added to stock at once (1 unit).</t>
                     </div>
 
                     <table t-if="state.log.length" class="table table-sm o_list_table">
@@ -119,10 +134,19 @@
                             <tr t-foreach="state.log" t-as="entry" t-key="entry.id">
                                 <td class="text-muted" t-esc="entry.time" />
                                 <td t-esc="entry.name" />
-                                <td class="text-end"><t t-esc="entry.qty" /> <t t-esc="entry.uom" /></td>
+                                <td
+                                    class="text-end"
+                                    t-esc="entry.qty + ' ' + entry.uom"
+                                />
                                 <td>
-                                    <span t-if="entry.mode === 'scrap'" class="badge text-bg-danger">Scrapped</span>
-                                    <span t-else="" class="badge text-bg-success">Added</span>
+                                    <span
+                                        t-if="entry.mode === 'scrap'"
+                                        class="badge text-bg-danger"
+                                    >Scrapped</span>
+                                    <span
+                                        t-else=""
+                                        class="badge text-bg-success"
+                                    >Added</span>
                                 </td>
                             </tr>
                         </tbody>

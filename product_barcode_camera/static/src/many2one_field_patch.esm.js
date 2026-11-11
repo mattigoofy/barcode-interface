@@ -13,7 +13,9 @@ const PRODUCT_MODELS = ["product.product", "product.template"];
 patch(Many2OneField.prototype, {
     get hasBarcodeButton() {
         if (!this.props.canScanBarcode && PRODUCT_MODELS.includes(this.relation)) {
-            return isMobileOS() && isBarcodeScannerSupported() && !this.hasExternalButton;
+            return (
+                isMobileOS() && isBarcodeScannerSupported() && !this.hasExternalButton
+            );
         }
         return super.hasBarcodeButton;
     },

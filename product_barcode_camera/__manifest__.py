@@ -11,7 +11,7 @@
     ],
     "assets": {
         "web.assets_backend": [
-            "product_barcode_camera/static/src/many2one_field_patch.js",
+            "product_barcode_camera/static/src/many2one_field_patch.esm.js",
         ],
     },
     "installable": True,

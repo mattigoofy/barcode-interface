@@ -65,6 +65,13 @@ class TestQuickScan(TransactionCase):
         self.assertEqual(self._qty(), 6)
         self.assertEqual(quant.inventory_quantity, 3)
 
+    def test_scrap_location_must_be_a_scrap_location(self):
+        self.Quant._update_available_quantity(self.product, self.location, 1)
+        with self.assertRaises(UserError):
+            self.Scrap.action_quick_scan_scrap(
+                self.location.id, self.product.id, scrap_location_id=self.location.id
+            )
+
     def test_refusals(self):
         tracked = self.env["product.product"].create(
             {"name": "Quick Lot", "is_storable": True, "tracking": "lot"}

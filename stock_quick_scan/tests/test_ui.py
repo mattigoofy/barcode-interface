@@ -21,11 +21,15 @@ function scan(barcode) {
 const rows = () => document.querySelectorAll(".o_stock_quick_scan tbody tr").length;
 (async () => {
     try {
-        await waitFor(() => document.querySelector(".o_stock_quick_scan select option"), "screen");
+        await waitFor(
+            () => document.querySelector(".o_stock_quick_scan select option"),
+            "screen"
+        );
         scan("QUICKSCAN1");
         scan("QUICKSCAN1");
         await waitFor(() => rows() === 2, "two scrapped");
-        [...document.querySelectorAll(".o_stock_quick_scan .btn-group .btn")][1].click();
+        const modes = document.querySelectorAll(".o_stock_quick_scan .btn-group .btn");
+        modes[1].click();
         scan("QUICKSCAN1");
         await waitFor(() => rows() === 3, "added to stock");
         console.log("test successful");
@@ -42,9 +46,11 @@ class TestQuickScanUi(HttpCase):
         product = self.env["product.product"].create(
             {"name": "Quick Scan UI", "is_storable": True, "barcode": "QUICKSCAN1"}
         )
-        location = self.env["stock.warehouse"].search(
-            [("company_id", "=", self.env.company.id)], limit=1
-        ).lot_stock_id
+        location = (
+            self.env["stock.warehouse"]
+            .search([("company_id", "=", self.env.company.id)], limit=1)
+            .lot_stock_id
+        )
         self.env["stock.quant"]._update_available_quantity(product, location, 5)
         action = self.env.ref("stock_quick_scan.action_quick_scan")
         self.browser_js(f"/odoo/action-{action.id}", SCRIPT, login="admin")

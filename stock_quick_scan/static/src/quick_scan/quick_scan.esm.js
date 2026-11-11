@@ -1,4 +1,5 @@
 import {Component, onWillStart, useState} from "@odoo/owl";
+import {useBus, useService} from "@web/core/utils/hooks";
 import {BarcodeDialog} from "@web/core/barcode/barcode_dialog";
 import {ConfirmationDialog} from "@web/core/confirmation_dialog/confirmation_dialog";
 import {Layout} from "@web/search/layout";
@@ -8,7 +9,6 @@ import {formatFloat} from "@web/core/utils/numbers";
 import {isBarcodeScannerSupported} from "@web/core/barcode/barcode_video_scanner";
 import {registry} from "@web/core/registry";
 import {standardActionServiceProps} from "@web/webclient/actions/action_service";
-import {useBus, useService} from "@web/core/utils/hooks";
 
 const STORAGE_KEY = "stock_quick_scan";
 const LOG_LIMIT = 30;
@@ -150,7 +150,11 @@ export class QuickScan extends Component {
         new Promise((resolve) => {
             this.dialog.add(
                 BarcodeDialog,
-                {facingMode: "environment", onResult: resolve, onError: () => undefined},
+                {
+                    facingMode: "environment",
+                    onResult: resolve,
+                    onError: () => undefined,
+                },
                 {onClose: () => Promise.resolve().then(() => resolve(null))}
             );
         }).then((code) => code && this.scan(code));
@@ -233,7 +237,9 @@ export class QuickScan extends Component {
                     "%(name)s: %(available)s %(uom)s in this location. Scrap anyway?",
                     {
                         name: product.display_name,
-                        available: formatFloat(result.available, {trailingZeros: false}),
+                        available: formatFloat(result.available, {
+                            trailingZeros: false,
+                        }),
                         uom: result.uom,
                     }
                 ),

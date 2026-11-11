@@ -113,8 +113,14 @@ class StockScrap(models.Model):
             "scrap_reason_tag_ids": [Command.set(reason_tag_ids or [])],
         }
         if scrap_location_id:
-            vals["scrap_location_id"] = scrap_location_id
-        if not force and not self.new(vals).check_available_qty():
+            scrap_location = self.env["stock.location"].browse(scrap_location_id)
+            if not scrap_location.exists() or not scrap_location.scrap_location:
+                raise UserError(self.env._("The selected scrap location is not valid."))
+            vals["scrap_location_id"] = scrap_location.id
+        virtual_scrap = self.new(vals)
+        if not virtual_scrap.scrap_location_id:
+            raise UserError(self.env._("There is no scrap location: create one first."))
+        if not force and not virtual_scrap.check_available_qty():
             available = product.with_context(
                 location=location.id, package_id=False, owner_id=False, strict=True
             ).qty_available
