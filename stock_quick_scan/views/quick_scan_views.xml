@@ -1,15 +1,128 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="action_quick_scan" model="ir.actions.client">
+    <record id="stock_scrap_quick_scan_view_form" model="ir.ui.view">
+        <field name="name">stock.scrap.quick.scan.form</field>
+        <field name="model">stock.scrap.quick.scan</field>
+        <field name="arch" type="xml">
+            <form string="Quick Scan">
+                <sheet>
+                    <!-- Draws nothing: catches the hardware scanner anywhere on the form.
+                         Must not be invisible, or it is not rendered at all. -->
+                    <field name="_barcode_scanned" widget="barcode_handler" />
+                    <field
+                        name="mode"
+                        widget="radio"
+                        options="{'horizontal': true}"
+                        class="mb-3"
+                    />
+                    <group>
+                        <field
+                            name="location_id"
+                            options="{'no_create': True, 'no_open': True}"
+                        />
+                        <field
+                            name="scrap_location_id"
+                            invisible="mode != 'scrap'"
+                            required="mode == 'scrap'"
+                            options="{'no_create': True, 'no_open': True}"
+                        />
+                        <field
+                            name="scrap_reason_tag_ids"
+                            widget="many2many_tags"
+                            invisible="mode != 'scrap'"
+                            options="{'no_create': True}"
+                        />
+                    </group>
+                    <group>
+                        <field
+                            name="product_id"
+                            placeholder="Scan, type a barcode or search a name"
+                            options="{'no_create': True, 'no_open': True}"
+                        />
+                    </group>
+                    <div invisible="not product_id" class="d-flex flex-wrap gap-4">
+                        <field
+                            name="product_image"
+                            widget="image"
+                            options="{'size': [128, 128]}"
+                            nolabel="1"
+                        />
+                        <group class="flex-grow-1">
+                            <label for="qty" />
+                            <div class="d-flex align-items-baseline gap-2">
+                                <field name="qty" />
+                                <field name="uom_id" options="{'no_open': True}" />
+                            </div>
+                            <field name="on_hand" />
+                            <field name="on_hand_after" />
+                        </group>
+                    </div>
+                    <div
+                        class="alert alert-warning"
+                        role="alert"
+                        invisible="mode != 'scrap' or not product_id or on_hand_after &gt;= 0"
+                    >
+                        Not that much in stock here: OK scraps it anyway.
+                    </div>
+                    <div invisible="not product_id" class="d-flex gap-2 mb-3">
+                        <button
+                            name="action_confirm"
+                            type="object"
+                            string="OK"
+                            class="btn-primary"
+                        />
+                        <button name="action_clear" type="object" string="Cancel" />
+                    </div>
+                    <field name="line_ids" readonly="1">
+                        <list decoration-muted="state == 'undone'">
+                            <field
+                                name="create_date"
+                                string="Time"
+                                widget="datetime"
+                            />
+                            <field
+                                name="product_image"
+                                widget="image"
+                                options="{'size': [32, 32]}"
+                                string=" "
+                            />
+                            <field name="product_id" />
+                            <field name="qty" />
+                            <field name="uom_id" string="Unit" />
+                            <field name="on_hand_after" />
+                            <field
+                                name="state"
+                                string="Done"
+                                widget="badge"
+                                decoration-danger="state == 'scrapped'"
+                                decoration-success="state == 'added'"
+                            />
+                            <button
+                                name="action_undo"
+                                type="object"
+                                string="Undo"
+                                icon="fa-undo"
+                                invisible="state == 'undone'"
+                            />
+                        </list>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_scrap_quick_scan_action" model="ir.actions.act_window">
         <field name="name">Quick Scan</field>
-        <field name="tag">stock_quick_scan</field>
+        <field name="res_model">stock.scrap.quick.scan</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
     </record>
 
     <menuitem
         id="menu_quick_scan"
         name="Quick Scan"
         parent="stock.menu_stock_adjustments"
-        action="action_quick_scan"
+        action="stock_scrap_quick_scan_action"
         groups="stock.group_stock_user"
         sequence="100"
     />

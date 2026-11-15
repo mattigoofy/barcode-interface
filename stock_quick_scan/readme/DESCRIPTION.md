@@ -1,3 +1,3 @@
-Adds **Inventory → Operations → Adjustments → Quick Scan**: every product
-scanned is scrapped, or put in stock, at once (one unit), without building a
-list first. It is a plain Odoo screen; no separate barcode app is needed.
+Adds **Inventory → Operations → Adjustments → Quick Scan**: scan a product,
+check the quantity and the stock, and press OK to scrap it or put it in stock.
+It is a plain Odoo form; no separate barcode app and no custom JavaScript.

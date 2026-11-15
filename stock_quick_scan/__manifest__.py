@@ -1,8 +1,8 @@
 {
     "name": "Stock Quick Scan",
-    "version": "18.0.1.0.0",
+    "version": "18.0.1.2.0",
     "category": "Inventory/Inventory",
-    "summary": "Scan a product to scrap it or put it in stock at once",
+    "summary": "Scan a product to scrap it or put it in stock",
     "author": "Mathias",
     "website": "https://github.com/synvio-mgo/barcode-interface",
     "license": "AGPL-3",
@@ -11,13 +11,9 @@
         "stock",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/quick_scan_views.xml",
     ],
-    "assets": {
-        "web.assets_backend": [
-            "stock_quick_scan/static/src/quick_scan/*",
-        ],
-    },
     "installable": True,
     "auto_install": False,
 }
