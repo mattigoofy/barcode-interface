@@ -4,7 +4,9 @@ Adds a camera button, to scan a barcode instead of typing it:
   stock moves, inventory, ...), not only where a view enables it with
   `can_scan_barcode`: scan, and the product is filled in;
 - on the **Barcode** field of a product (product and variant forms): scan the
-  label, and its barcode is filled in.
+  label, and its barcode is filled in;
+- in the search bar of the product and variant lists: scan a label, and the
+  list is filtered on that barcode or internal reference.
 
 Same conditions as Odoo's own camera buttons: on a phone or tablet, with the
 camera available (HTTPS or localhost).

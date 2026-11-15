@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-inherit="web.SearchBar" t-inherit-mode="extension">
+        <xpath
+            expr="//div[hasclass('o_searchview_input_container')]"
+            position="after"
+        >
+            <button
+                t-if="hasProductBarcodeCamera"
+                type="button"
+                class="btn border-0 p-0 ms-2 d-print-none o_product_barcode_search_camera_btn"
+                title="Scan barcode"
+                aria-label="Scan barcode"
+                t-on-click="onProductBarcodeCameraClick"
+            >
+                <i class="fa fa-barcode fa-lg" />
+            </button>
+        </xpath>
+    </t>
+</templates>
